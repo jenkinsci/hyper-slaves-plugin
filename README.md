@@ -1,7 +1,7 @@
-Hyper_ Slaves Plugin For Jenkins
-================================
+Hyper.sh Slaves Plugin For Jenkins
+==================================
 
-This plugin allows to execute a jenkins job inside [`Hyper_`](https://hyper.sh) container(s).
+This plugin allows to execute a jenkins job inside [`Hyper.sh`](https://hyper.sh) container(s).
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -28,7 +28,7 @@ This plugin allows to execute a jenkins job inside [`Hyper_`](https://hyper.sh) 
 
 # Dependency
 - [hyper-commons-plugin](https://github.com/jenkinsci/hyper-commons-plugin)
-- Hyper_ credential (get from https://console.hyper.sh)
+- Hyper.sh credential (get from https://console.hyper.sh)
 - Jenkins Server should have `public ip`
 
 # About Image
@@ -98,7 +98,7 @@ Click `Build Now`
 If job failed, please check the following log:  
 - Check the “Console Output” in “Build history” of Job
 - Check the Node log
-- Check the Hyper_ container log by execute “hyper logs <container_id>”
+- Check the Hyper.sh container log by execute “hyper logs <container_id>”
 
 ### Example
 
@@ -108,7 +108,7 @@ Check the `Consle Output`
 Then check the Node log(`this will be deleted after job finished`)  
 ![](image/debug-node-log.png)
 
-The cause maybe Hyper_ container size is too small, or slave agent start failed.
+The cause maybe Hyper.sh container size is too small, or slave agent start failed.
 
-You can check the Hyper_ container log like this:  
+You can check the Hyper.sh container log like this:  
 ![](image/debug-hyper-container-log.png)
