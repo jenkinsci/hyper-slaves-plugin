@@ -25,4 +25,5 @@ build: $(DISTDIR)/trampoline
 
 $(DISTDIR)/%:
 	GOPATH=$(CURDIR) GOOS=$(GOOS) GOARCH=$(GOARCH) $(GO) build $(GO_BUILDFLAGS) -ldflags "$(GO_LDFLAGS)" -o $(DISTDIR)/$*.fat $*
-	upx -o $(DISTDIR)/$* $(DISTDIR)/$*.fat
+	#upx -o $(DISTDIR)/$* $(DISTDIR)/$*.fat
+	goupx $(DISTDIR)/$*.fat
