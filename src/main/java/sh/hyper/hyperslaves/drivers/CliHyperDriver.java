@@ -28,11 +28,11 @@ import hudson.Launcher;
 import hudson.Proc;
 import hudson.slaves.SlaveComputer;
 import hudson.util.ArgumentListBuilder;
+import jenkins.model.Jenkins;
+import org.apache.commons.lang.StringUtils;
 import sh.hyper.hyperslaves.ContainerInstance;
 import sh.hyper.hyperslaves.ProvisionQueueListener;
 import sh.hyper.hyperslaves.spi.ContainerDriver;
-import org.apache.commons.lang.StringUtils;
-import jenkins.model.Jenkins;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -105,11 +105,22 @@ public class CliHyperDriver implements ContainerDriver {
 
         args.add("env").add(starter.envs());
 
+//        if (starter.pwd() != null){
+//            args.add("trampoline", "cdexec", starter.pwd().getRemote());
+//        }
+
         List<String> originalCmds = starter.cmds();
         boolean[] originalMask = starter.masks();
         for (int i = 0; i < originalCmds.size(); i++) {
             boolean masked = originalMask == null ? false : i < originalMask.length ? originalMask[i] : false;
-            args.add(originalCmds.get(i), masked);
+            //workaround
+            if (starter.pwd() != null && originalCmds.get(i) == "-xe") {
+                args.add(originalCmds.get(i) + "c", masked);
+            } else if (starter.pwd() != null && i == originalCmds.size() - 1) {
+                args.add(String.format("cd %s; chmod +x %s; %s", starter.pwd().getRemote(), originalCmds.get(i), originalCmds.get(i)), masked);
+            } else {
+                args.add(originalCmds.get(i), masked);
+            }
         }
 
         Launcher.ProcStarter procStarter = launchHyperCLI(launcher, args);
@@ -178,6 +189,7 @@ public class CliHyperDriver implements ContainerDriver {
         prependHyperArgs(args);
         //prependDockerArgs(args);
 
+        System.out.printf("cmd: %s%n", args);
         return launcher.launch()
                 .cmds(args)
                 .quiet(!verbose);
