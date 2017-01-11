@@ -73,7 +73,7 @@ public class CliHyperDriver implements ContainerDriver {
         String sizeFlag = "--size=" + size;
         String rootUrl = Jenkins.getInstance().getRootUrl();
         String jenkinsUrl = rootUrl + "/jnlpJars/slave.jar";
-        String downloadSlaveJarCmd = String.format("wget %s -O slave.jar && echo wget OK || (curl %s -O && echo curl OK || echo skip download slave.jar)", jenkinsUrl, jenkinsUrl);
+        String downloadSlaveJarCmd = String.format("(wget --tries=5 --wait=5 --connect-timeout=5 --read-timeout=10 %s -O slave.jar && echo wget OK || (curl --retry 5 --retry-delay 5 --connect-timeout 5 --max-time 10 %s -O && echo curl OK || echo download slave.jar failed))", jenkinsUrl, jenkinsUrl);
         String jnlpConnectCmd = String.format("java -jar slave.jar -jnlpUrl %s/%s/slave-agent.jnlp -secret %s", rootUrl, computer.getUrl(), computer.getJnlpMac());
         String startCmd = "/bin/sh -c '" + downloadSlaveJarCmd + " ; " + jnlpConnectCmd + "'";
         ArgumentListBuilder args = new ArgumentListBuilder()
@@ -117,7 +117,7 @@ public class CliHyperDriver implements ContainerDriver {
             if (starter.pwd() != null && originalCmds.get(i) == "-xe") {
                 args.add(originalCmds.get(i) + "c", masked);
             } else if (starter.pwd() != null && i == originalCmds.size() - 1) {
-                args.add(String.format("cd %s; chmod +x %s; %s", starter.pwd().getRemote(), originalCmds.get(i), originalCmds.get(i)), masked);
+                args.add(String.format("cd '%s'; chmod +x %s; %s", starter.pwd().getRemote(), originalCmds.get(i), originalCmds.get(i)), masked);
             } else {
                 args.add(originalCmds.get(i), masked);
             }
