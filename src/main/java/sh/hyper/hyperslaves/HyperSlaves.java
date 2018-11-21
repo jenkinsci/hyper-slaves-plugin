@@ -82,9 +82,9 @@ public class HyperSlaves extends Plugin implements Describable<HyperSlaves> {
     public static HyperSlaves get() {
         HyperSlaves slaves = null;
         try {
-            slaves = Jenkins.getInstance().getPlugin(HyperSlaves.class);
+            slaves = Jenkins.get().getPlugin(HyperSlaves.class);
         } catch (NullPointerException e) {
-            throw new IllegalStateException("Jenkins.getInstance().getPlugin() is null, get a NullPointerException.");
+            throw new IllegalStateException("Jenkins.get().getPlugin() is null, get a NullPointerException.");
         }
         return slaves;
     }
@@ -93,7 +93,7 @@ public class HyperSlaves extends Plugin implements Describable<HyperSlaves> {
     public Descriptor<HyperSlaves> getDescriptor() {
         Descriptor<HyperSlaves> slaves = null;
         try {
-            slaves = Jenkins.getInstance().getDescriptorOrDie(HyperSlaves.class);
+            slaves = Jenkins.get().getDescriptorOrDie(HyperSlaves.class);
         } catch (NullPointerException e) {
             throw new IllegalStateException("Jenkins.getDescriptor().getDescriptorOrDie() is null, get a NullPointerException.");
         }
