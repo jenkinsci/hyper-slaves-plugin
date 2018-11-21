@@ -27,6 +27,9 @@ This plugin allows to execute a jenkins job inside [`Hyper.sh`](https://hyper.sh
 ![](image/hyper.png)
 
 # Dependency
+
+- maven 3.5+
+- java sdk 8
 - [docker-slaves-plugin](https://github.com/jenkinsci/docker-slaves-plugin)
 - [hyper-commons-plugin](https://github.com/jenkinsci/hyper-commons-plugin)
 - Hyper.sh credential (get from https://console.hyper.sh)
