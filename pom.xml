@@ -10,7 +10,7 @@
 
     <groupId>sh.hyper.plugins</groupId>
     <artifactId>hyper-slaves</artifactId>
-    <version>0.1.11-SNAPSHOT</version>
+    <version>0.1.11</version>
     <packaging>hpi</packaging>
 
     <name>Hyper.sh Slaves Plugin</name>
@@ -53,7 +53,7 @@
         <connection>scm:git:git://github.com/jenkinsci/hyper-slaves-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/hyper-slaves-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/hyper-slaves-plugin</url>
-        <tag>HEAD</tag>
+        <tag>hyper-slaves-0.1.11</tag>
     </scm>
 
     <dependencies>
